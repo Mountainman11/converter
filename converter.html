@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" ref="converter.css">
+</head>
+
+<body>
+    <form id="converter">
+        <label for="conversionType">Select type of conversion:</label>
+        <select id="conversionType">
+            <option value=''></option>
+            <option value="speed">Speed</option>
+            <option value="temperature">Temperature</option>
+            <option value="pressure">Pressure</option>
+            <option value="volume">Volume</option>
+            <option value="length">Length</option>
+            <option value="area">Area</option>
+            <option value="mass">Mass</option>
+        </select>
+        <input type="number" id="inputData" placeholder="0">
+        <select id="startingUnits">
+            <option value=""></option>
+        </select>
+    </form>
+    <div id="output">
+        
+    </div>
+    <script type="text/javascript" src="converter.js"></script>
+</body>
+
+</html>
