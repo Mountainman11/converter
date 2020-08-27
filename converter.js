@@ -3,81 +3,93 @@ const inputData = document.getElementById('inputData');
 const startingUnits = document.getElementById('startingUnits');
 const output = document.getElementById('output');
 
-const speedUnits = ['','Kph', 'Mph', 'm/s', 'kn', 'f/s'];
-const temperatureUnits = ['','kelvin', '\u2103', '\u2109'];
-const pressureUnits = ['','Pa', 'bar', 'at', 'atm', 'Torr', 'lbf/in2'];
-const volumeUnits = ['','m\u00b3', 'ft\u00b3', 'liter', 'gallon', 'pint', 'cord'];
-const lengthUnits = ['','meter', 'feet', 'yard', 'inches', 'miles', 'lightyear'];
-const areaUnits = ['','m\u00b2', 'ft\u00b2', 'acre', 'hectare'];
-const massUnits = ['','ton(US)', 'ton(UK)', 'oz', 'stone', 'lb', 'gram']
+const speedUnits = ['', 'kph', 'mph', 'm/s', 'kn', 'f/s'];
+const temperatureUnits = ['', 'kelvin', '\u2103', '\u2109'];
+const pressureUnits = ['', 'Pa', 'bar', 'atm', 'Torr', 'lbf/in\u00b2'];
+const volumeUnits = ['', 'm\u00b3', 'ft\u00b3', 'liter', 'gallon', 'pint', 'cup', 'teaspoon', 'tablespoon' ];
+const lengthUnits = ['', 'meter', 'foot', 'yard', 'inch', 'mile', 'lightsecond', 'furlong', 'fathom', 'league', 'nm'];
+const areaUnits = ['', 'm\u00b2', 'ft\u00b2', 'acre', 'hectare'];
+const massUnits = ['', 'ton(US)', 'ton(UK)', 'oz', 'stone', 'lb', 'gram']
 
 let conversion = ''
 let input = 0;
 let unit = '';
-let base=0;
+let base = 0;
 
 conversionType.addEventListener('change', setConversionType);
-inputData.addEventListener("change", function(){input=inputData.value})
-startingUnits.addEventListener("change", determineConversion)
+inputData.addEventListener("change", determineConversion);
+startingUnits.addEventListener("change", determineConversion);
 
-function setConversionType(){
+function setConversionType() {
     conversion = conversionType.value;
-    switch(conversion){
+    switch (conversion) {
         case 'speed':
-            startingUnits.innerHTML=setUnits(speedUnits);
+            startingUnits.innerHTML = setUnits(speedUnits);
             break;
         case 'temperature':
-            startingUnits.innerHTML=setUnits(temperatureUnits);
+            startingUnits.innerHTML = setUnits(temperatureUnits);
             break;
         case 'pressure':
-            startingUnits.innerHTML=setUnits(pressureUnits);
+            startingUnits.innerHTML = setUnits(pressureUnits);
             break;
         case 'volume':
-            startingUnits.innerHTML=setUnits(volumeUnits);
+            startingUnits.innerHTML = setUnits(volumeUnits);
             break;
         case 'length':
-            startingUnits.innerHTML=setUnits(lengthUnits);
+            startingUnits.innerHTML = setUnits(lengthUnits);
             break;
         case 'area':
-            startingUnits.innerHTML=setUnits(areaUnits);
+            startingUnits.innerHTML = setUnits(areaUnits);
             break;
         case 'mass':
-            startingUnits.innerHTML=setUnits(massUnits);
+            startingUnits.innerHTML = setUnits(massUnits);
+            break;
+        default:
             break;
     }
 };
 
-function setUnits(units){
+function setUnits(units) {
     let choices = '';
-    for(let i = 0; i < units.length; i++){
+    for (let i = 0; i < units.length; i++) {
         choices += `<option value='${units[i]}'>${units[i]}</option>;\n`;
-    } return choices;
+    }
+    return choices;
 }
 
-function determineConversion(){
+function determineConversion() {
     unit = startingUnits.value;
-    switch(conversion){
+    input = inputData.value;
+    switch (conversion) {
         case 'speed':
-            speedConvertToBase();
-            output.innerHTML=(`<strong>Kph</strong> ${base}
-<strong>Mph</strong> ${base * 0.621371}
-<strong>m/s</strong> ${base * 0.277778}
-<strong>kn</strong> ${base * 0.539957}
-<strong>f/s</strong> ${base * 0.911344}`)
+            formatOutput(speedConversion(unit, input));
+            break;
+        case 'temperature':
+            formatOutput(temperatureConversion(unit, input));
+            break;
+        case 'pressure':
+            formatOutput(pressureConversion(unit, input));
+            break;
+        case 'volume':
+            formatOutput(volumeConversion(unit, input));
+            break;
+        case 'length':
+            formatOutput(lengthConversion(unit, input));
+            break;
+        case 'area':
+            formatOutput(areaConversion(unit, input));
+            break;
+        case 'mass':
+            formatOutput(massConversion(unit, input));
+            break;
+        default:
+            break;
     }
 }
 
-function speedConvertToBase(){
-    switch(unit){
-        case 'Kph':
-            base = Number(input);
-        case 'Mph':
-            base = Number(input) * 1.609344;
-        case 'm/s':
-            base = Number(input) * 3.6;
-        case 'kn':
-            base = Number(input) * 1.85;
-        case 'f/s':
-            base = Number(input) * 1.09728;
-    }   
+function formatOutput(arr) {
+    output.innerHTML = '';
+    for (let i = 0; i < arr.length; i++) {
+        output.innerHTML += (`<p><strong>${arr[i].unit}:</strong> ${arr[i].value}</p>`)
+    }
 }

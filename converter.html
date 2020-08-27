@@ -2,13 +2,13 @@
 <html>
 
 <head>
-    <link rel="stylesheet" ref="converter.css">
+    <link rel="stylesheet" href="converter.css">
 </head>
 
 <body>
     <form id="converter">
-        <label for="conversionType">Select type of conversion:</label>
-        <select id="conversionType">
+        <label for="conversionType">Select type of conversion:</label><br>
+        <select id="conversionType" class="input">
             <option value=''></option>
             <option value="speed">Speed</option>
             <option value="temperature">Temperature</option>
@@ -18,15 +18,22 @@
             <option value="area">Area</option>
             <option value="mass">Mass</option>
         </select>
-        <input type="number" id="inputData" placeholder="0">
-        <select id="startingUnits">
+        <input type="number" id="inputData" placeholder="0" class="input">
+        <select id="startingUnits" class="input">
             <option value=""></option>
         </select>
     </form>
     <div id="output">
-        
+
     </div>
     <script type="text/javascript" src="converter.js"></script>
+    <script type="text/javascript" src="speedConversion.js"></script>
+    <script type="text/javascript" src="temperatureConversion.js"></script>
+    <script type="text/javascript" src="pressureConversion.js"></script>
+    <script type="text/javascript" src="volumeConversion.js"></script>
+    <script type="text/javascript" src="lengthConversion.js"></script>
+    <script type="text/javascript" src="areaConversion.js"></script>
+    <script type="text/javascript" src="massConversion.js"></script>
 </body>
 
 </html>
